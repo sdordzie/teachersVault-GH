@@ -1042,6 +1042,18 @@ body.dark .term-option.active { color: #8ba4ff; }
 
   /* SECTION HEADERS */
   .section-header { flex-wrap: wrap; gap: 8px; }
+
+  /* REPORTS */
+  .report-hero { flex-direction: column; align-items: flex-start; gap: 12px; padding: 18px; }
+  .report-hero-title { font-size: 1.1rem; }
+  .report-filter-bar { padding: 12px 14px; gap: 8px; }
+  .bar-label { width: 80px; font-size: .72rem; }
+  .bar-fill { font-size: .66rem; }
+  .heatmap-cell { width: 11px; height: 11px; }
+  .donut-wrap { gap: 14px; }
+  .donut-svg { width: 100px; height: 100px; }
+  .stat-pill { min-width: 70px; }
+  .stat-pill-val { font-size: 1.1rem; }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -1071,6 +1083,132 @@ body.dark .term-option.active { color: #8ba4ff; }
    SLIDE UP ANIMATION (modal on mobile)
 ═══════════════════════════════════════════════════ */
 @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+/* ═══════════════════════════════════════════════════
+   REPORTS & ANALYTICS
+═══════════════════════════════════════════════════ */
+.report-hero {
+  background: linear-gradient(135deg, #1a2d6e 0%, #0e1526 50%, #1a0a3e 100%);
+  border-radius: var(--rr);
+  padding: 22px 24px;
+  color: #fff;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.report-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(77,110,247,.2) 0%, transparent 60%);
+}
+.report-hero-content { position: relative; z-index: 1; }
+.report-hero-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+.report-hero-sub { font-size: .83rem; opacity: .75; }
+.report-hero-actions { position: relative; z-index: 1; display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+
+.report-filter-bar {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--rr);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filter-label { font-size: .75rem; font-weight: 800; color: var(--mut); text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; }
+
+/* Bar chart */
+.bar-chart { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: flex; align-items: center; gap: 10px; }
+.bar-label { font-size: .78rem; font-weight: 700; color: var(--txt2); width: 110px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; }
+.bar-track { flex: 1; height: 28px; background: var(--bg); border-radius: 8px; overflow: hidden; position: relative; }
+.bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  display: flex; align-items: center; padding-left: 10px;
+  font-size: .72rem; font-weight: 800; color: #fff;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+  min-width: 24px;
+  white-space: nowrap;
+}
+.bar-count { font-size: .76rem; font-weight: 700; color: var(--mut); width: 36px; text-align: right; flex-shrink: 0; }
+
+/* Donut chart (pure CSS) */
+.donut-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.donut-svg { flex-shrink: 0; }
+.donut-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 120px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: .82rem; }
+.legend-dot { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
+.legend-label { flex: 1; color: var(--txt2); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.legend-val { font-weight: 800; color: var(--txt); }
+
+/* Activity heatmap */
+.heatmap-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.heatmap { display: flex; gap: 3px; }
+.heatmap-col { display: flex; flex-direction: column; gap: 3px; }
+.heatmap-cell { width: 14px; height: 14px; border-radius: 3px; background: var(--line); flex-shrink: 0; cursor: default; transition: transform .1s; }
+.heatmap-cell:hover { transform: scale(1.3); }
+.heatmap-cell.l1 { background: rgba(45,82,230,.25); }
+.heatmap-cell.l2 { background: rgba(45,82,230,.5); }
+.heatmap-cell.l3 { background: rgba(45,82,230,.75); }
+.heatmap-cell.l4 { background: var(--pri); }
+.heatmap-months { display: flex; gap: 3px; margin-bottom: 4px; font-size: .65rem; color: var(--mut); font-weight: 700; }
+
+/* Stat row */
+.stat-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.stat-pill {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex; flex-direction: column; gap: 2px;
+  flex: 1; min-width: 90px;
+}
+.stat-pill-val { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; }
+.stat-pill-lbl { font-size: .7rem; font-weight: 700; color: var(--mut); text-transform: uppercase; letter-spacing: .04em; }
+
+/* Insights */
+.insight-card {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg);
+  border-radius: 14px;
+  margin-bottom: 8px;
+  border-left: 3px solid var(--pri);
+}
+.insight-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+.insight-text { font-size: .84rem; line-height: 1.6; color: var(--txt2); }
+.insight-text b { color: var(--txt); }
+
+/* ═══════════════════════════════════════════════════
+   PRINT STYLES
+═══════════════════════════════════════════════════ */
+@media print {
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .side, .topbar, .bottom-nav, .report-hero-actions,
+  .report-filter-bar, .no-print, #toastEl, #modalOverlay { display: none !important; }
+  .main { margin-left: 0 !important; }
+  .content-area { padding: 0 !important; }
+  .app { display: block !important; }
+  .card { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: avoid; }
+  .card-pad { padding: 12pt !important; }
+  .print-header { display: block !important; }
+  .kpi-card { break-inside: avoid; }
+  .bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .grid-4 { grid-template-columns: repeat(4,1fr) !important; }
+  .grid-2 { grid-template-columns: repeat(2,1fr) !important; }
+  h1, h2, .card-title, .section-title { color: #000 !important; }
+  a { color: #000 !important; }
+  .report-print-title { display: block !important; font-size: 18pt; font-weight: 800; margin-bottom: 4pt; }
+  .report-print-sub { display: block !important; font-size: 10pt; color: #555; margin-bottom: 16pt; }
+  .heatmap-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+.print-header, .report-print-title, .report-print-sub { display: none; }
+
 </style>
 </head>
 <body>
@@ -1304,7 +1442,7 @@ body.dark .term-option.active { color: #8ba4ff; }
     <button class="bottom-nav-btn" onclick="go('dashboard')"><span class="bn-icon">🏠</span>Home</button>
     <button class="bottom-nav-btn" onclick="go('files')"><span class="bn-icon">📁</span>Files</button>
     <button class="bottom-nav-btn" onclick="go('upload')"><span class="bn-icon">⬆️</span>Upload</button>
-    <button class="bottom-nav-btn" onclick="go('sync')"><span class="bn-icon">☁️</span>Sync</button>
+    <button class="bottom-nav-btn" onclick="go('reports')"><span class="bn-icon">📊</span>Reports</button>
     <button class="bottom-nav-btn" onclick="go('settings')"><span class="bn-icon">⚙️</span>More</button>
   </nav>
 </div>
@@ -1327,10 +1465,10 @@ body.dark .term-option.active { color: #8ba4ff; }
 const DB_NAME = 'tfv_ghana_pro_v3';
 const DB_VER  = 2;
 const STORES  = ['users','files','logs','settings','queue','conflicts'];
-const PAGES   = ['dashboard','files','upload','sync','logs','users','settings','help'];
+const PAGES   = ['dashboard','files','upload','reports','sync','logs','users','settings','help'];
 const PAGE_LABELS = {
   dashboard:'🏠 Dashboard', files:'📁 My Files', upload:'⬆️ Upload',
-  sync:'☁️ Cloud Sync', logs:'📜 Activity', users:'👥 Users',
+  reports:'📊 Reports', sync:'☁️ Cloud Sync', logs:'📜 Activity', users:'👥 Users',
   settings:'⚙️ Settings', help:'❓ Help'
 };
 
@@ -1656,7 +1794,7 @@ async function render() {
   $('pageTitle').textContent = label.replace(/^\S+\s/, '');
   $('breadcrumb').textContent = 'Home / ' + $('pageTitle').textContent;
   await buildTermChip();
-  const fn = {dashboard, files, upload, sync, logs, users, settings, help}[currentScreen] || dashboard;
+  const fn = {dashboard, files, upload, reports, sync, logs, users, settings, help}[currentScreen] || dashboard;
   $('content').innerHTML = '';
   await fn();
 }
@@ -1705,7 +1843,7 @@ function buildNav() {
 }
 
 function updateBottomNav() {
-  const bnPages = ['dashboard','files','upload','sync','settings'];
+  const bnPages = ['dashboard','files','upload','reports','settings'];
   $('bottomNav').querySelectorAll('.bottom-nav-btn').forEach((btn, i) => {
     btn.classList.toggle('active', bnPages[i] === currentScreen);
   });
@@ -2424,6 +2562,451 @@ function resetApp() {
     window.location.reload();
   }
 }
+
+
+// ═══════════════════════════════════════════════
+//  REPORTS & ANALYTICS
+// ═══════════════════════════════════════════════
+
+// Colour palette for charts
+const CHART_COLORS = [
+  '#2d52e6','#7c3aed','#0891b2','#0a9e6e','#d97706',
+  '#dc2626','#db2777','#059669','#6366f1','#f59e0b'
+];
+
+async function reports() {
+  const [allFiles, allLogs, allUsers, schoolCfg] = await Promise.all([
+    all('files'), all('logs'), all('users'), getSchoolConfig()
+  ]);
+
+  // ── Compute stats ──────────────────────────────
+  const totalFiles  = allFiles.length;
+  const totalSize   = allFiles.reduce((a,b)=>a+(b.size||0),0);
+  const synced      = allFiles.filter(f=>f.cloudPath).length;
+  const local       = totalFiles - synced;
+
+  // Files by category
+  const byCat = {};
+  allFiles.forEach(f => { const k = f.category||'Uncategorised'; byCat[k]=(byCat[k]||0)+1; });
+
+  // Files by subject
+  const bySub = {};
+  allFiles.forEach(f => { if(f.subject){ bySub[f.subject]=(bySub[f.subject]||0)+1; } });
+
+  // Files by class
+  const byCls = {};
+  allFiles.forEach(f => { if(f.className){ byCls[f.className]=(byCls[f.className]||0)+1; } });
+
+  // Files by period
+  const byPeriod = {};
+  allFiles.forEach(f => { if(f.term){ byPeriod[f.term]=(byPeriod[f.term]||0)+1; } });
+
+  // Files by type (mime)
+  const byType = {};
+  allFiles.forEach(f => {
+    let t = 'Other';
+    if(!f.type) t='Other';
+    else if(f.type.includes('pdf')) t='PDF';
+    else if(f.type.includes('image')) t='Images';
+    else if(f.type.includes('word')||f.type.includes('document')) t='Word Docs';
+    else if(f.type.includes('excel')||f.type.includes('sheet')||f.type.includes('csv')) t='Spreadsheets';
+    else if(f.type.includes('presentation')||f.type.includes('powerpoint')) t='Presentations';
+    else if(f.type.includes('video')) t='Video';
+    else if(f.type.includes('audio')) t='Audio';
+    byType[t]=(byType[t]||0)+1;
+  });
+
+  // Upload activity — last 12 weeks (84 days)
+  const now = Date.now();
+  const DAY = 86400000;
+  const weeks = 12;
+  const heatData = Array.from({length: weeks*7}, (_,i)=>0);
+  allFiles.forEach(f => {
+    if(!f.createdAt) return;
+    const age = Math.floor((now - new Date(f.createdAt).getTime()) / DAY);
+    if(age < weeks*7 && age >= 0) heatData[weeks*7-1-age]++;
+  });
+
+  // Upload trend — files per week last 8 weeks
+  const weeklyData = Array.from({length:8},(_,i)=>{
+    const weekStart = now - (7-i)*7*DAY;
+    const weekEnd   = now - (6-i)*7*DAY;
+    return allFiles.filter(f=>{
+      if(!f.createdAt) return false;
+      const t = new Date(f.createdAt).getTime();
+      return t>=weekStart && t<weekEnd;
+    }).length;
+  });
+
+  // Most active user
+  const userFileCount = {};
+  allFiles.forEach(f=>{ if(f.owner) userFileCount[f.owner]=(userFileCount[f.owner]||0)+1; });
+  const topUserId = Object.keys(userFileCount).sort((a,b)=>userFileCount[b]-userFileCount[a])[0];
+  const topUser = allUsers.find(u=>u.id===topUserId);
+
+  // Avg files per week (since first upload)
+  let avgPerWeek = 0;
+  const dates = allFiles.map(f=>new Date(f.createdAt||0).getTime()).filter(Boolean).sort();
+  if(dates.length>1){
+    const spanWeeks = Math.max(1,(dates[dates.length-1]-dates[0])/(7*DAY));
+    avgPerWeek = (dates.length/spanWeeks).toFixed(1);
+  }
+
+  // Insights
+  const insights = buildInsights(allFiles, byCat, bySub, byCls, byPeriod, topUser, synced, totalFiles);
+
+  const periodLabel = SCHOOL_CONFIGS[schoolCfg.type]?.system==='semester'?'Semester':'Term';
+
+  $('content').innerHTML = `
+  <div class="animate-in" id="reportRoot">
+
+    <!-- Print-only header -->
+    <div class="print-header" style="margin-bottom:20px;border-bottom:2px solid #000;padding-bottom:12px">
+      <div class="report-print-title">${esc(schoolCfg.schoolName||'School')} — FileVault Analytics Report</div>
+      <div class="report-print-sub">Generated on ${new Date().toLocaleDateString('en-GH',{dateStyle:'full'})} · ${esc(schoolCfg.activePeriod||'')} ${esc(schoolCfg.academicYear||'')}</div>
+    </div>
+
+    <!-- Hero -->
+    <div class="report-hero no-print">
+      <div class="report-hero-content">
+        <div class="report-hero-title">📊 Reports & Analytics</div>
+        <div class="report-hero-sub">${esc(schoolCfg.schoolName||'Your School')} · ${esc(schoolCfg.activePeriod||'')} ${esc(schoolCfg.academicYear||'')}</div>
+      </div>
+      <div class="report-hero-actions">
+        <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)" onclick="printReport()">🖨️ Print</button>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)" onclick="exportReportPDF()">📄 Export PDF</button>
+      </div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="grid grid-4 gap-12 mb-20">
+      <div class="kpi-card">
+        <div class="kpi-icon blue">📁</div>
+        <div class="kpi-label">Total Files</div>
+        <div class="kpi-value">${totalFiles}</div>
+        <div class="kpi-change">In your vault</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon green">💾</div>
+        <div class="kpi-label">Storage Used</div>
+        <div class="kpi-value">${fmt(totalSize)}</div>
+        <div class="kpi-change">${synced} synced to cloud</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon purple">📈</div>
+        <div class="kpi-label">Avg / Week</div>
+        <div class="kpi-value">${avgPerWeek}</div>
+        <div class="kpi-change">Files uploaded</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon teal">👥</div>
+        <div class="kpi-label">Active Users</div>
+        <div class="kpi-value">${allUsers.filter(u=>u.status!=='Inactive').length}</div>
+        <div class="kpi-change">of ${allUsers.length} total</div>
+      </div>
+    </div>
+
+    <!-- Upload Activity Heatmap + Trend -->
+    <div class="grid grid-2 gap-12 mb-20">
+      <div class="card card-pad">
+        <div class="card-header">
+          <div>
+            <div class="card-title">📅 Upload Activity</div>
+            <div class="card-sub">Last 12 weeks — daily uploads</div>
+          </div>
+        </div>
+        ${buildHeatmap(heatData, weeks)}
+        <div class="stat-row mt-12">
+          <div class="stat-pill">
+            <div class="stat-pill-val">${allFiles.filter(f=>{ const d=now-new Date(f.createdAt||0).getTime(); return d<7*DAY; }).length}</div>
+            <div class="stat-pill-lbl">This week</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-pill-val">${allFiles.filter(f=>{ const d=now-new Date(f.createdAt||0).getTime(); return d<30*DAY; }).length}</div>
+            <div class="stat-pill-lbl">This month</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-pill-val">${synced}</div>
+            <div class="stat-pill-lbl">Cloud synced</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-pill-val">${local}</div>
+            <div class="stat-pill-lbl">Local only</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-pad">
+        <div class="card-header">
+          <div>
+            <div class="card-title">📈 Weekly Trend</div>
+            <div class="card-sub">Files uploaded — last 8 weeks</div>
+          </div>
+        </div>
+        ${buildWeeklyChart(weeklyData)}
+      </div>
+    </div>
+
+    <!-- Category + Subject -->
+    <div class="grid grid-2 gap-12 mb-20">
+      <div class="card card-pad">
+        <div class="card-header">
+          <div class="card-title">🗂️ Files by Category</div>
+          <div class="card-sub">${Object.keys(byCat).length} categories</div>
+        </div>
+        ${buildBarChart(byCat, totalFiles)}
+      </div>
+      <div class="card card-pad">
+        <div class="card-header">
+          <div class="card-title">📚 Files by Subject</div>
+          <div class="card-sub">${Object.keys(bySub).length} subjects</div>
+        </div>
+        ${Object.keys(bySub).length ? buildBarChart(bySub, totalFiles) : emptyState('📚','No subjects tagged','Edit files to add subjects')}
+      </div>
+    </div>
+
+    <!-- Class + Period + Type -->
+    <div class="grid grid-3 gap-12 mb-20">
+      <div class="card card-pad">
+        <div class="card-header">
+          <div class="card-title">🏫 Files by Class</div>
+        </div>
+        ${Object.keys(byCls).length ? buildBarChart(byCls, totalFiles, true) : emptyState('🏫','No classes tagged','')}
+      </div>
+      <div class="card card-pad">
+        <div class="card-header">
+          <div class="card-title">📅 By ${periodLabel}</div>
+        </div>
+        ${Object.keys(byPeriod).length ? buildBarChart(byPeriod, totalFiles, true) : emptyState('📅','No periods tagged','')}
+      </div>
+      <div class="card card-pad">
+        <div class="card-header">
+          <div class="card-title">📎 File Types</div>
+        </div>
+        ${buildDonut(byType)}
+      </div>
+    </div>
+
+    <!-- Smart Insights -->
+    <div class="card card-pad mb-20">
+      <div class="card-header">
+        <div class="card-title">💡 Smart Insights</div>
+        <div class="card-sub">Auto-generated observations</div>
+      </div>
+      ${insights.length ? insights.map(i=>`
+        <div class="insight-card">
+          <div class="insight-icon">${i.icon}</div>
+          <div class="insight-text">${i.text}</div>
+        </div>`).join('') : emptyState('💡','Upload files to generate insights','')}
+    </div>
+
+    <!-- File Detail Table -->
+    <div class="card mb-20">
+      <div class="card-pad" style="border-bottom:1px solid var(--line)">
+        <div class="flex justify-between items-center flex-wrap gap-8">
+          <div>
+            <div class="card-title">📋 Complete File Inventory</div>
+            <div class="card-sub">${totalFiles} files total</div>
+          </div>
+          <div class="flex gap-8 no-print">
+            <button class="btn btn-secondary btn-sm" onclick="exportCSV()">📥 Export CSV</button>
+          </div>
+        </div>
+      </div>
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+        <table class="data-table" style="min-width:560px">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Category</th>
+              <th>Subject</th>
+              <th>Class</th>
+              <th>${periodLabel}</th>
+              <th>Size</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${allFiles.length ? [...allFiles].sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0)).map(f=>`
+              <tr>
+                <td><div class="flex items-center gap-8"><span>${fileIcon(f.type)}</span><span style="font-weight:700;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(f.title)}</span></div></td>
+                <td class="mut">${esc(f.category||'—')}</td>
+                <td class="mut">${esc(f.subject||'—')}</td>
+                <td class="mut">${esc(f.className||'—')}</td>
+                <td class="mut">${esc(f.term||'—')}</td>
+                <td class="mut">${fmt(f.size)}</td>
+                <td>${f.cloudPath?'<span class="status-chip chip-ok" style="font-size:.68rem">☁️ Synced</span>':'<span class="status-chip chip-warn" style="font-size:.68rem">📱 Local</span>'}</td>
+                <td class="mut" style="white-space:nowrap;font-size:.75rem">${fmtDate(f.createdAt)}</td>
+              </tr>`).join('')
+            : `<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--mut)">No files yet</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>`;
+}
+
+// ── Chart builders ─────────────────────────────
+
+function buildBarChart(obj, total, compact=false) {
+  const sorted = Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,compact?6:8);
+  const max = Math.max(...sorted.map(x=>x[1]),1);
+  return `<div class="bar-chart">
+    ${sorted.map(([k,v],i)=>{
+      const pct = Math.round((v/max)*100);
+      const dispPct = Math.round((v/total)*100);
+      return `<div class="bar-row">
+        <div class="bar-label" title="${esc(k)}">${esc(k.length>14?k.slice(0,13)+'…':k)}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%;background:${CHART_COLORS[i%CHART_COLORS.length]}">${v>2?v+'':''}</div>
+        </div>
+        <div class="bar-count">${dispPct}%</div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function buildDonut(obj) {
+  const entries = Object.entries(obj).sort((a,b)=>b[1]-a[1]);
+  const total = entries.reduce((a,b)=>a+b[1],0);
+  if(!total) return emptyState('📎','No files yet','');
+  const r=52, cx=64, cy=64, circ=2*Math.PI*r;
+  let offset=0;
+  const slices = entries.map(([k,v],i)=>{
+    const pct=v/total; const dash=pct*circ;
+    const s=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none"
+      stroke="${CHART_COLORS[i%CHART_COLORS.length]}" stroke-width="18"
+      stroke-dasharray="${dash} ${circ-dash}"
+      stroke-dashoffset="${-offset}"
+      transform="rotate(-90 ${cx} ${cy})"/>`;
+    offset+=dash; return s;
+  }).join('');
+  return `<div class="donut-wrap">
+    <svg class="donut-svg" width="128" height="128" viewBox="0 0 128 128">
+      ${slices}
+      <text x="64" y="60" text-anchor="middle" font-size="18" font-weight="800" fill="currentColor">${total}</text>
+      <text x="64" y="76" text-anchor="middle" font-size="9" fill="currentColor" opacity=".6">files</text>
+    </svg>
+    <div class="donut-legend">
+      ${entries.slice(0,6).map(([k,v],i)=>`
+        <div class="legend-item">
+          <div class="legend-dot" style="background:${CHART_COLORS[i%CHART_COLORS.length]}"></div>
+          <div class="legend-label" title="${esc(k)}">${esc(k)}</div>
+          <div class="legend-val">${v}</div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function buildHeatmap(data, weeks) {
+  const days=['S','M','T','W','T','F','S'];
+  const monthLabels = [];
+  const now = new Date();
+  for(let w=weeks-1;w>=0;w--){
+    const d = new Date(now - w*7*86400000);
+    if(d.getDate()<=7) monthLabels.unshift({w:weeks-1-w, label:d.toLocaleString('default',{month:'short'})});
+  }
+  const maxVal = Math.max(...data,1);
+  let cols='';
+  for(let w=0;w<weeks;w++){
+    let cells='';
+    for(let d=0;d<7;d++){
+      const v=data[w*7+d]||0;
+      const lvl=v===0?'':v/maxVal<.25?'l1':v/maxVal<.5?'l2':v/maxVal<.75?'l3':'l4';
+      cells+=`<div class="heatmap-cell ${lvl}" title="${v} file(s)"></div>`;
+    }
+    cols+=`<div class="heatmap-col">${cells}</div>`;
+  }
+  const mLabels=`<div class="heatmap-months">${Array.from({length:weeks},(_,i)=>{
+    const ml=monthLabels.find(m=>m.w===i);
+    return `<div style="width:17px;text-align:center">${ml?ml.label:''}</div>`;
+  }).join('')}</div>`;
+  return `<div class="heatmap-wrap">${mLabels}<div class="heatmap">${cols}</div></div>`;
+}
+
+function buildWeeklyChart(data) {
+  const max=Math.max(...data,1);
+  const h=80;
+  const w=100/data.length;
+  const bars=data.map((v,i)=>{
+    const pct=v/max;
+    const barH=Math.max(pct*h,v>0?4:0);
+    const isLast=i===data.length-1;
+    const label=`W${i+1}`;
+    return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="font-size:.68rem;font-weight:800;color:var(--pri)">${v||''}</div>
+      <div style="width:100%;height:${h}px;display:flex;align-items:flex-end">
+        <div style="width:100%;height:${barH}px;background:${isLast?'var(--pri)':'var(--pri-mid)'};border-radius:6px 6px 0 0;transition:.5s;min-height:${v>0?3:0}px"></div>
+      </div>
+      <div style="font-size:.65rem;color:var(--mut);font-weight:700">${label}</div>
+    </div>`;
+  }).join('');
+  return `<div style="display:flex;gap:4px;align-items:flex-end;padding-top:8px">${bars}</div>`;
+}
+
+function buildInsights(files, byCat, bySub, byCls, byPeriod, topUser, synced, total) {
+  const ins=[];
+  if(!total) return ins;
+  const topCat=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];
+  const topSub=Object.entries(bySub).sort((a,b)=>b[1]-a[1])[0];
+  const topCls=Object.entries(byCls).sort((a,b)=>b[1]-a[1])[0];
+  const syncPct=total?Math.round((synced/total)*100):0;
+  const now=Date.now(), DAY=86400000;
+  const thisWeek=files.filter(f=>now-new Date(f.createdAt||0).getTime()<7*DAY).length;
+  const lastWeek=files.filter(f=>{const d=now-new Date(f.createdAt||0).getTime();return d>=7*DAY&&d<14*DAY;}).length;
+
+  if(topCat) ins.push({icon:'🏆',text:`Your most-used category is <b>${esc(topCat[0])}</b> with <b>${topCat[1]} files</b> — that's ${Math.round(topCat[1]/total*100)}% of your vault.`});
+  if(topSub) ins.push({icon:'📚',text:`<b>${esc(topSub[0])}</b> is your most documented subject with <b>${topSub[1]} files</b>.`});
+  if(topCls) ins.push({icon:'🏫',text:`<b>${esc(topCls[0])}</b> has the most resources with <b>${topCls[1]} files</b> uploaded.`});
+  if(topUser) ins.push({icon:'👤',text:`<b>${esc(topUser.name)}</b> is the most active contributor with <b>${files.filter(f=>f.owner===topUser.id).length} uploads</b>.`});
+  if(syncPct<50&&total>5) ins.push({icon:'⚠️',text:`Only <b>${syncPct}%</b> of your files are cloud-synced. Enable Supabase sync to back up the remaining <b>${total-synced} files</b>.`});
+  if(syncPct===100&&total>0) ins.push({icon:'✅',text:`All <b>${total} files</b> are safely backed up to the cloud. Great job!`});
+  if(thisWeek>lastWeek&&lastWeek>0) ins.push({icon:'📈',text:`Upload activity is up this week — <b>${thisWeek} files</b> vs <b>${lastWeek}</b> last week.`});
+  if(thisWeek<lastWeek&&thisWeek===0) ins.push({icon:'📉',text:`No files uploaded this week. Last week had <b>${lastWeek} uploads</b>.`});
+  const noSubject=files.filter(f=>!f.subject).length;
+  if(noSubject>total*0.4&&total>4) ins.push({icon:'💡',text:`<b>${noSubject} files</b> have no subject tagged. Adding subjects improves filtering and reporting.`});
+  return ins.slice(0,6);
+}
+
+// ── Print & Export ─────────────────────────────
+
+function printReport() {
+  window.print();
+}
+
+async function exportReportPDF() {
+  toast('Preparing PDF… This uses browser print. Choose "Save as PDF" in the print dialog.', '', 4000);
+  await new Promise(r=>setTimeout(r,400));
+  window.print();
+}
+
+async function exportCSV() {
+  const files = await all('files');
+  const headers = ['Title','Category','Subject','Class','Term','Size (bytes)','Type','Cloud Synced','Date Added','Notes'];
+  const rows = files.map(f=>[
+    `"${(f.title||'').replace(/"/g,'""')}"`,
+    `"${(f.category||'').replace(/"/g,'""')}"`,
+    `"${(f.subject||'').replace(/"/g,'""')}"`,
+    `"${(f.className||'').replace(/"/g,'""')}"`,
+    `"${(f.term||'').replace(/"/g,'""')}"`,
+    f.size||0,
+    `"${(f.type||'').replace(/"/g,'""')}"`,
+    f.cloudPath?'Yes':'No',
+    `"${fmtDate(f.createdAt)}"`,
+    `"${(f.notes||'').replace(/"/g,'""')}"`
+  ].join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  const schoolCfg = await getSchoolConfig();
+  a.download = `${(schoolCfg.schoolName||'FileVault').replace(/\s+/g,'_')}_Files_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  toast('CSV exported!', 'ok');
+}
+
 
 // ═══════════════════════════════════════════════
 //  HELP
